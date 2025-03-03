@@ -1,17 +1,11 @@
-#No pushup only reel - change your next reel with a simple eye gaze
-#opencv tracking eye movement to generate a up and down key stroke 
+#iris segmentation using mediapipe
 
 
 #import libraries
 import cv2 
 import numpy as np
-import time as Time 
-from win32api import keybd_event
 import mediapipe as mp
 
-#keycode for up and down arrow keys
-vk_down = 0x28
-vk_up = 0x26
 
 #mediapipe facemash
 mp_face_mesh = mp.solutions.face_mesh
@@ -26,6 +20,8 @@ RIGHT_IRIS = [469, 470, 471, 472]
 
 #caputre video
 cap = cv2.VideoCapture(0)
+
+
 
 with mp_face_mesh.FaceMesh(
     max_num_faces=1,
@@ -52,6 +48,8 @@ with mp_face_mesh.FaceMesh(
             center_right = np.array([r_cx, r_cy], dtype=np.int32)
             cv2.circle(frame, center_left, int(l_radius), (255,0,255), 1, cv2.LINE_AA)
             cv2.circle(frame, center_right, int(r_radius), (255,0,255), 1, cv2.LINE_AA)
+            
+
             
         cv2.imshow('img', frame)
         key = cv2.waitKey(1)
